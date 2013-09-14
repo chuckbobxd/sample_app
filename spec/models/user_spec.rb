@@ -108,4 +108,13 @@ describe User do
     it { should be_invalid } 
   end
 
+  describe "email to lowercase" do
+    let(:mixed_email) { 'sAdFGAsAFAsd@yahoo.com' }
+
+    it "should be saved as lower case" do
+      @user.email = mixed_email
+      @user.save
+      @user.reload.email.should == mixed_email.downcase
+    end
+  end
 end

@@ -43,5 +43,6 @@ describe "Static pages" do
     let(:page_title) { 'Contact' }
 
     it_should_behave_like "all static pages"
+    
   end
 end

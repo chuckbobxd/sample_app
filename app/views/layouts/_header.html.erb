@@ -2,7 +2,7 @@
   <div class="navbar-inner">
     <div class="container">
       <% if signed_in? %>
-        <%= link_to "sample app", current_user, id: "logo" %>
+        <%= link_to "sample app", root_path, id: "logo" %>
       <% else %>
         <%= link_to "sample app", root_path, id: "logo" %>
       <% end %>

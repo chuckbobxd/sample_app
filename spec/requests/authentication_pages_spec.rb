@@ -37,7 +37,6 @@ subject { page }
 
     describe "for non-signed-in users" do 
       let(:user) { FactoryGirl.create(:user) }
-      let(:non_admin) { FactoryGirl.create(:user) }
 
       describe "in the Relationships controller" do
         describe "submitting to the create action" do
@@ -72,7 +71,7 @@ subject { page }
         end
 
         describe "submitting to the update action" do
-          before { patch user_path(user) }
+          before { put user_path(user) }
           specify { expect(response).to redirect_to(signin_path) }
         end
 
@@ -87,7 +86,7 @@ subject { page }
         end
 
         describe "visiting the followers page" do
-          before { visiting followers_user_path(user) }
+          before { visit followers_user_path(user) }
           it { should have_selector("title", text: "Sign in") }
         end
       end
@@ -111,12 +110,16 @@ subject { page }
         before { put user_path(user) }
         specify { response.should redirect_to(signin_path) }
       end
+      describe "as non-admin user" do
+        let(:user) { FactoryGirl.create :user }
+        let(:non_admin) { FactoryGirl.create :user }
 
-      before { sign_in non_admin }
+        before { sign_in non_admin }
 
-      describe "submitting a DELETE request to the Users#destroy action" do
-        before { delete user_path(user) }
-        specify { response.should redirect_to(root_url) }
+        describe "submitting a DELETE request to the Users#destroy action" do
+          before { delete user_path(user) }
+          specify { response.should redirect_to(root_url) }
+        end
       end
     end
   end      
